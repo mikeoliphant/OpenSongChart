@@ -1,0 +1,18 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SongFormat", "SongFormat\SongFormat.shproj", "{595D9376-81D5-4163-9045-BD1D72A45B16}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5634E2AE-378D-4FD6-8C44-9E15716AFC6E}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SongFormat\SongFormat.projitems*{595d9376-81d5-4163-9045-bd1d72a45b16}*SharedItemsImports = 13
+	EndGlobalSection
+EndGlobal
