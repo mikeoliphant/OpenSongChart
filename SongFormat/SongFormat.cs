@@ -267,7 +267,8 @@ namespace SongFormat
         Slap = 1 << 13,
         Pop = 1 << 14,
         Chord = 1 << 15,
-        Continued = 1 << 16
+        ChordNote = 1 << 16,
+        Continued = 1 << 17
     }
 
     /// <summary>
