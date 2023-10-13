@@ -28,7 +28,7 @@ Files are:
   "InstrumentParts": [
     {
       "InstrumentName": "bass",
-      "InstrumentType": 2,
+      "InstrumentType": "BassGuitar",
       "Tuning": {
         "StringSemitoneOffsets": [
           -1,
@@ -53,7 +53,7 @@ Files are:
     },
     {
       "InstrumentName": "rhythm",
-      "InstrumentType": 1,
+      "InstrumentType": "RhythmGuitar",
       "Tuning": {
         "StringSemitoneOffsets": [
           -1,
@@ -66,7 +66,7 @@ Files are:
     },
     {
       "InstrumentName": "vocals",
-      "InstrumentType": 3
+      "InstrumentType": "Vocals"
     }
   ]
 }
@@ -79,10 +79,10 @@ Notes:
 "**InstrumentType** is an enumeration. It is separate from the name of the part, because there could be more than one part for an instrument type. Current types are:
 
 ```
-Lead Guitar = 0
-Rhythm Guitar = 1
-Bass Guitar = 2
-Vocals = 3
+LeadGuitar
+RhythmGuitar
+BassGuitar
+Vocals
 ```
 
 ## arrangement.json
