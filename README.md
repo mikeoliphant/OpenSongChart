@@ -77,3 +77,17 @@ Notes: "**A440CentsOffset**" is the numbers of cents (100th of a semitone) the s
 ## arrangement.json
 The arrangment file currently just has a "**Beats**" section, which is a list of time-indexed measures/beats.
 
+## <part>.json
+The individual instrument parts have a "**Sections**"" list and a "**Notes**"" list.
+
+A section is a division of an instrument part into logical sections. It looks like this:
+
+```
+{
+  "Name": "intro",
+  "StartTime": 4.18,
+  "EndTime":19.737
+}
+```
+
+A note is an individual note event. It is the most complex structure.
