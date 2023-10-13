@@ -6,16 +6,16 @@ This is a work-in-progress open format for song charts - the data required to ca
  - It is not an "editor" format. It is designed for playback.
 
 # What is in this repo?
-This repository currently has C# data structures designed to be deserialized from data files (currently using json)
+This repository currently has C# data structures designed to be deserialized from data files (currently using json).
 
 # Song format details
 A song is comprised of a folder of files.
 
 Files are:
-- song.json (song metadata)
-- song.ogg (song audio recording)
-- arrangement.json (song structure information - currently just measures/beats)
-- <part>.json (one file per instrument part)
+- **song.json** (song metadata)
+- **song.ogg** (song audio recording)
+- **arrangement.json** (song structure information - currently just measures/beats)
+- **\<part\>.json** (one file per instrument part)
 
 ## song.json
 
