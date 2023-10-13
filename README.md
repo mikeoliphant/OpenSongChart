@@ -92,6 +92,28 @@ The arrangment file currently just has a "**Beats**" section, which is a list of
 ## \<part\>.json
 The individual stringed instrument parts have a "**Sections**"" list, a "**Chords**" list and a "**Notes**"" list.
 
+Like this:
+
+```
+{
+  "Sections": [
+    <section>,
+    <section>
+    ...
+  ],
+  "Chords": [
+    <chord>
+    <chord>
+    ...
+  ],
+  "Notes": [
+    <note>
+    <note>
+    ...
+  ]
+}
+```
+
 A section is a division of an instrument part into logical sections. It looks like this:
 
 ```
