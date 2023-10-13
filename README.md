@@ -89,8 +89,8 @@ Vocals
 ## arrangement.json
 The arrangment file currently just has a "**Beats**" section, which is a list of time-indexed measures/beats.
 
-## <part>.json
-The individual instrument parts have a "**Sections**"" list and a "**Notes**"" list.
+## \<part\>.json
+The individual stringed instrument parts have a "**Sections**"" list, a "**Chords**" list and a "**Notes**"" list.
 
 A section is a division of an instrument part into logical sections. It looks like this:
 
@@ -101,5 +101,16 @@ A section is a division of an instrument part into logical sections. It looks li
   "EndTime":19.737
 }
 ```
+
+Chords indicate the fingers and frets per string:
+
+```
+{
+  "Name": "A",
+  "Fingers": [-1,-1,1,2,3,-1],
+  "Frets":[-1,0,2,2,2,-1]
+}
+```
+In this case, it is an "A" chord with fingers 1, 2, and 3 all on fret 2 of the D, G, and B strings and the A string is open.
 
 A note is an individual note event. It is the most complex structure.
