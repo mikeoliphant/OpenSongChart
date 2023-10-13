@@ -41,6 +41,7 @@ Files are:
     },
     {
       "InstrumentName": "lead",
+      "InstrumentType": "LeadGuitar",
       "Tuning": {
         "StringSemitoneOffsets": [
           -1,
