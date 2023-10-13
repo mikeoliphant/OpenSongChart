@@ -23,7 +23,7 @@ Files are:
 {
   "SongName": "Cool Song",
   "ArtistName": "Cool Artist",
-  "AlbumName": "Awesomee album",
+  "AlbumName": "Awesome album",
   "A440CentsOffset": 30,
   "InstrumentParts": [
     {
