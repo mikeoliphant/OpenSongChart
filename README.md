@@ -168,4 +168,4 @@ Vocal parts have a different structure. They are simply a list of timed vocal ev
 }
 ```
 
-Newline characters ("\n") indicate a line break. Dashes ("-") indicate word breaks. Any vocal that doesn't end with "-" should be consider a complete word.
+Newline characters ("\n") indicate a line break. Dashes ("-") indicate word breaks. Any vocal that doesn't end with "-" should be considered a complete word.
