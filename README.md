@@ -102,7 +102,7 @@ A section is a division of an instrument part into logical sections. It looks li
 }
 ```
 
-Chords indicate the fingers and frets per string:
+Chords indicate the fingers and frets per string (with "-1" indicating the string is unused)
 
 ```
 {
@@ -114,3 +114,58 @@ Chords indicate the fingers and frets per string:
 In this case, it is an "A" chord with fingers 1, 2, and 3 all on fret 2 of the D, G, and B strings and the A string is open.
 
 A note is an individual note event. It is the most complex structure.
+
+Here is an example:
+
+```
+{
+  "TimeOffset": 43.796,
+  "TimeLength": 0.204,
+  "Fret": 5,
+  "String": 1,
+  "Techniques": "Slide",
+  "HandFret": 5,
+  "SlideFret": 7
+}
+```
+"TimeOffset" is the start time of the note in seconds. "TimeLength" is the duration. "Fret" and "String" are the fingering. "HandFret" is the hand anchor position. "Techniques" is a comma-separated list of note modifiers. In this case, we have a slide from from 5 to fret 7 on the second string.
+
+Currently, these are the possible techniques:
+
+```
+HammerOn 
+PullOff 
+Accent 
+PalmMute 
+FretHandMute 
+Slide 
+Bend 
+Tremolo 
+Vibrato 
+Harmonic 
+PinchHarmonic 
+Tap 
+Slap 
+Pop 
+Chord 
+ChordNote 
+Continued 
+```
+
+These should be pretty self-explanatory, with a few exceptions:
+- **Chord** indicates the note is a chord, **ChordID** will be an index into the list of Chords
+- **ChordNote** if present with **Chord**, indicates that individual notes for the chord follow with their own separate information
+- **ChordNote** if *not* present with **Chord**, indicates the chord is a simple chord
+- **Continued** indicates the note is a continuation of a previous note (so a new note head should not be drawn)
+
+## vocals.json
+Vocal parts have a different structure. They are simply a list of timed vocal events:
+
+```
+{
+  "Vocal": "Lala\n"
+  "TimeOffset":16.159
+}
+```
+
+Newline characters ("\n") indicate a line break. Dashes ("-") indicate word breaks. Any vocal that doesn't end with "-" should be consider a complete word.
