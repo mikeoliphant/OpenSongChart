@@ -12,8 +12,8 @@ namespace SongFormat
         public string SongName { get; set; }
         public string ArtistName { get; set; }
         public string AlbumName { get; set; }
-        public List<SongInstrumentPart> InstrumentParts { get; set; } = new List<SongInstrumentPart>();
         public float A440CentsOffset { get; set; }
+        public List<SongInstrumentPart> InstrumentParts { get; set; } = new List<SongInstrumentPart>();
 
         public SongInstrumentPart GetPart(string instrumentName)
         {
