@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace SongFormat
 {
@@ -23,6 +24,22 @@ namespace SongFormat
         public override string ToString()
         {
             return ArtistName + " - " + SongName;
+        }
+    }
+
+    /// <summary>
+    /// Instrument part metadata
+    /// </summary>
+    public class SongInstrumentPart
+    {
+        public string InstrumentName { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+        public ESongInstrumentType InstrumentType { get; set; }
+        public StringTuning Tuning { get; set; }
+
+        public override string ToString()
+        {
+            return InstrumentName;
         }
     }
 
@@ -68,21 +85,6 @@ namespace SongFormat
         RhythmGuitar,
         BassGuitar,
         Vocals
-    }
-
-    /// <summary>
-    /// Instrument part metadata
-    /// </summary>
-    public class SongInstrumentPart
-    {
-        public string InstrumentName { get; set; }
-        public ESongInstrumentType InstrumentType { get; set; }
-        public StringTuning Tuning { get; set; }
-
-        public override string ToString()
-        {
-            return InstrumentName;
-        }
     }
 
     /// <summary>
