@@ -7,6 +7,7 @@ Design goals are:
 - Make it easy to render a visual timeline representation ("note highway") from.
 
 # What is it not?
+ - ***It is a ".pdf", not a ".doc".***
  - It is not a score format. It is designed to represent a song as actually performed, with events synchronized to an audio recording.
  - It is not an "editor" format. It is designed for playback.
 
