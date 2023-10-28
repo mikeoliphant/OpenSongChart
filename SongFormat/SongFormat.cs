@@ -84,6 +84,7 @@ namespace SongFormat
         LeadGuitar,
         RhythmGuitar,
         BassGuitar,
+        Keys,
         Vocals
     }
 
@@ -271,6 +272,28 @@ namespace SongFormat
         Chord = 1 << 15,
         ChordNote = 1 << 16,
         Continued = 1 << 17
+    }
+
+    /// <summary>
+    /// Notes for a keys part
+    /// </summary>
+    public class SongKeyboardNotes
+    {
+        public List<SongSection> Sections { get; set; } = new List<SongSection>();
+        public List<SongKeyboardNote> Notes { get; set; } = new List<SongKeyboardNote>();
+    }
+
+    public struct SongKeyboardNote
+    {
+        public float TimeOffset { get; set; } = 0;
+        public float TimeLength { get; set; } = 0;
+        public int Note { get; set; } = 0;
+        public int Velocity { get; set; } = 0;
+
+        public SongKeyboardNote()
+        {
+
+        }
     }
 
     /// <summary>

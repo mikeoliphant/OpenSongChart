@@ -9,6 +9,7 @@
     <Import_RootNamespace>SongFormat</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)SerializationUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SongFormat.cs" />
   </ItemGroup>
 </Project>
