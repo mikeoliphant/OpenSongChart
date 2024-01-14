@@ -271,7 +271,8 @@ namespace SongFormat
         Pop = 1 << 14,
         Chord = 1 << 15,
         ChordNote = 1 << 16,
-        Continued = 1 << 17
+        Continued = 1 << 17,
+        Arpeggio = 1 << 18
     }
 
     /// <summary>
