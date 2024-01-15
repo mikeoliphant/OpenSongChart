@@ -227,15 +227,46 @@ namespace SongFormat
     /// </summary>
     public struct SongNote
     {
+        /// <summary>
+        /// Start offset of the note in seconds
+        /// </summary>
         public float TimeOffset { get; set; } = 0;
+        /// <summary>
+        /// Sustain length of the note in seconds
+        /// </summary>
         public float TimeLength { get; set; } = 0;
+        /// <summary>
+        /// Fret number of the note - "0" is open string, "-1" is unfretted
+        /// </summary>
         public int Fret { get; set; } = -1;
+        /// <summary>
+        /// String of the note (zero-based)
+        /// </summary>
         public int String { get; set; } = -1;
+        /// <summary>
+        /// Array of bend offsets
+        /// </summary>
         public CentsOffset[] CentsOffsets { get; set; } = null;
+        /// <summary>
+        /// Song technique flags
+        /// </summary>
         public ESongNoteTechnique Techniques { get; set; } = 0;
+        /// <summary>
+        /// Bottom fret of hand position
+        /// </summary>
         public int HandFret { get; set; } = -1;
+        /// <summary>
+        /// Fret that note slides to over the course of its sustain
+        /// </summary>
         public int SlideFret { get; set; } = -1;
+        /// <summary>
+        /// Index into chord array to use for notes
+        /// </summary>
         public int ChordID { get; set; } = -1;
+        /// <summary>
+        /// Index into chord array to use for fingering
+        /// </summary>
+        public int FingerID { get; set; } = -1;
 
         public SongNote()
         {
@@ -243,9 +274,18 @@ namespace SongFormat
         }
     }
 
+    /// <summary>
+    /// Offset structure for bends
+    /// </summary>
     public struct CentsOffset
     {
+        /// <summary>
+        /// Time offset of the bend position
+        /// </summary>
         public float TimeOffset { get; set; }
+        /// <summary>
+        /// Amount of the bend, in cents (100th of a semitone)
+        /// </summary>
         public int Cents { get; set; }
     }
 
