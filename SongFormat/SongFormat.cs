@@ -36,10 +36,11 @@ namespace SongFormat
         [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public ESongInstrumentType InstrumentType { get; set; }
         public StringTuning Tuning { get; set; }
+        public int CapoFret { get; set; } = 0;
 
         public override string ToString()
         {
-            return InstrumentName;
+            return InstrumentName + " (" + Tuning.GetTuning() + ((CapoFret > 0) ? (" C" + CapoFret) : "") + ")";
         }
     }
 
