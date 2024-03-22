@@ -11,6 +11,10 @@ Design goals are:
  - It is not a score format. It is designed to represent a song as actually performed, with events synchronized to an audio recording.
  - It is not an "editor" format. It is designed for playback.
 
+# How to get songs in OpenSongChart format
+
+Songs in PSARC format can be converted using the [PsarcConverter](https://github.com/mikeoliphant/PsarcConverter) application.
+
 # What is in this repo?
 This repository currently has C# data structures designed to be deserialized from data files (currently using json).
 
