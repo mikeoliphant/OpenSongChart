@@ -87,7 +87,7 @@ Notes:
 
 "**A440CentsOffset**" is the numbers of cents (100th of a semitone) the song is out of tune. This is in addition to the individual instrument tunings described by the "**Tuning**" for each part. "**StringSemitoneOffsets**" specifies how many semitones each string is detuned from E standard tuning. So, for this song example, all of the guitar parts are tuned a half-step down to Eb. But the song is also 30 cents sharp.
 
-"**InstrumentType** is an enumeration. It is separate from the name of the part, because there could be more than one part for an instrument type. Current types are:
+"**InstrumentType**" is an enumeration. It is separate from the name of the part, because there could be more than one part for an instrument type. Current types are:
 
 ```
 LeadGuitar
@@ -100,7 +100,7 @@ Vocals
 The arrangment file currently just has a "**Beats**" section, which is a list of time-indexed measures/beats.
 
 ## \<part\>.json
-The individual stringed instrument parts have a "**Sections**"" list, a "**Chords**" list and a "**Notes**"" list.
+The individual stringed instrument parts have a "**Sections**" list, a "**Chords**" list and a "**Notes**" list.
 
 Like this:
 
