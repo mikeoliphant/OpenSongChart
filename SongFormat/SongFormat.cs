@@ -47,7 +47,7 @@ namespace SongFormat
 
         public override string ToString()
         {
-            return InstrumentName + " (" + Tuning.GetTuning() + ((CapoFret > 0) ? (" C" + CapoFret) : "") + ")";
+            return InstrumentName + ((Tuning == null) ? "" : " (" + Tuning.GetTuning() + ((CapoFret > 0) ? (" C" + CapoFret) : "") + ")");
         }
     }
 
