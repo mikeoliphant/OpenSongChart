@@ -36,10 +36,11 @@ namespace SongFormat
         [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public ESongInstrumentType InstrumentType { get; set; }
         public StringTuning Tuning { get; set; }
+        public int CapoFret { get; set; } = 0;
 
         public override string ToString()
         {
-            return InstrumentName;
+            return InstrumentName + " (" + Tuning.GetTuning() + ((CapoFret > 0) ? (" C" + CapoFret) : "") + ")";
         }
     }
 
@@ -104,10 +105,10 @@ namespace SongFormat
 
             if (IsOffsetFromStandard())
             {
-                string key = GetOffsetNote(StringSemitoneOffsets[1]);
+                string key = (StringSemitoneOffsets[1] < 0) ? GetOffsetNoteFlat(StringSemitoneOffsets[1]) : GetOffsetNoteSharp(StringSemitoneOffsets[1]);
 
                 if (key == null)
-                    return "Custom";
+                    return GetTuningAsNotes();
 
                 if (StringSemitoneOffsets[0] == StringSemitoneOffsets[1])
                 {
@@ -115,10 +116,10 @@ namespace SongFormat
                 }
                 else // Drop tuning
                 {
-                    string drop = GetDropNote(StringSemitoneOffsets[0]);
+                    string drop = GetOffsetNoteFlat(StringSemitoneOffsets[0]);
 
                     if (drop == null)
-                        return "Custom";
+                        return GetTuningAsNotes();
 
                     if (key == "E")
                         return "Drop " + drop;
@@ -127,7 +128,39 @@ namespace SongFormat
                 }
             }
 
-            return "Custom";
+            return GetTuningAsNotes();
+        }
+
+        static int[] StringOffsetsFromE = { 0, 5, 10, 3, 7, 0 };
+
+        public string GetTuningAsNotes()
+        {
+            string tuning = null;
+
+            for (int i = 0; i < StringSemitoneOffsets.Count; i++)
+            {
+                tuning += GetOffsetNoteSharp(StringSemitoneOffsets[i] + StringOffsetsFromE[i]);
+            }
+
+            switch (tuning)
+            {
+                case "DGDGBD":
+                    return "Open G";
+
+                case "DADF#AD":
+                    return "Open D";
+
+                case "EBEG#BE":
+                    return "Open E";
+
+                case "EAEAC#E":
+                    return "Open A";
+
+                case "CGCGCE":
+                    return "Open C";
+            }
+
+            return tuning;
         }
 
         /// <summary>
@@ -144,13 +177,16 @@ namespace SongFormat
         }
 
         /// <summary>
-        /// Get note name offset from E standard
+        /// Get note name offset from E using sharps
         /// </summary>
         /// <param name="offset">The offset in semitones</param>
         /// <returns>The offset note name</returns>
-        public static string GetOffsetNote(int offset)
+        public static string GetOffsetNoteSharp(int offset)
         {
-            switch (offset)
+            if (offset < 0)
+                offset += 12;
+
+            switch (offset % 12)
             {
                 case 0:
                     return "E";
@@ -158,40 +194,63 @@ namespace SongFormat
                     return "F";
                 case 2:
                     return "F#";
-                case -1:
-                    return "Eb";
-                case -2:
-                    return "D";
-                case -3:
-                    return "C#";
-                case -4:
-                    return "C";
-                case -5:
+                case 3:
+                    return "G";
+                case 4:
+                    return "G#";
+                case 5:
+                    return "A";
+                case 6:
+                    return "A#";
+                case 7:
                     return "B";
+                case 8: return "C";
+                case 9:
+                    return "C#";
+                case 10:
+                    return "D";
+                case 11:
+                    return "D#";
             }
 
             return null;
         }
 
         /// <summary>
-        /// Get a dropped note name (prefer flats) offset from E standard
+        /// Get note name offset from E using flats
         /// </summary>
         /// <param name="offset">The offset in semitones</param>
         /// <returns>The offset note name</returns>
-        public static string GetDropNote(int offset)
+        public static string GetOffsetNoteFlat(int offset)
         {
-            switch (offset)
+            if (offset < 0)
+                offset += 12;
+
+            switch (offset % 12)
             {
-                case -1:
-                    return "Eb";
-                case -2:
-                    return "D";
-                case -3:
-                    return "Db";
-                case -4:
-                    return "C";
-                case -5:
+                case 0:
+                    return "E";
+                case 1:
+                    return "F";
+                case 2:
+                    return "Gb";
+                case 3:
+                    return "G";
+                case 4:
+                    return "Ab";
+                case 5:
+                    return "A";
+                case 6:
+                    return "Bb";
+                case 7:
                     return "B";
+                case 8: return "C";
+                case 9:
+                    return "Db";
+                case 10:
+                    return "D";
+                case 11:
+                    return "Eb";
             }
 
             return null;
@@ -228,16 +287,47 @@ namespace SongFormat
     /// </summary>
     public struct SongNote
     {
+        /// <summary>
+        /// Start offset of the note in seconds
+        /// </summary>
         [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public float TimeOffset { get; set; } = 0;
+        /// <summary>
+        /// Sustain length of the note in seconds
+        /// </summary>
         public float TimeLength { get; set; } = 0;
+        /// <summary>
+        /// Fret number of the note - "0" is open string, "-1" is unfretted
+        /// </summary>
         public int Fret { get; set; } = -1;
+        /// <summary>
+        /// String of the note (zero-based)
+        /// </summary>
         public int String { get; set; } = -1;
+        /// <summary>
+        /// Array of bend offsets
+        /// </summary>
         public CentsOffset[] CentsOffsets { get; set; } = null;
+        /// <summary>
+        /// Song technique flags
+        /// </summary>
         public ESongNoteTechnique Techniques { get; set; } = 0;
+        /// <summary>
+        /// Bottom fret of hand position
+        /// </summary>
         public int HandFret { get; set; } = -1;
+        /// <summary>
+        /// Fret that note slides to over the course of its sustain
+        /// </summary>
         public int SlideFret { get; set; } = -1;
+        /// <summary>
+        /// Index into chord array to use for notes
+        /// </summary>
         public int ChordID { get; set; } = -1;
+        /// <summary>
+        /// Index into chord array to use for fingering
+        /// </summary>
+        public int FingerID { get; set; } = -1;
 
         public SongNote()
         {
@@ -245,10 +335,19 @@ namespace SongFormat
         }
     }
 
+    /// <summary>
+    /// Offset structure for bends
+    /// </summary>
     public struct CentsOffset
     {
+        /// <summary>
+        /// Time offset of the bend position
+        /// </summary>
         [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public float TimeOffset { get; set; }
+        /// <summary>
+        /// Amount of the bend, in cents (100th of a semitone)
+        /// </summary>
         public int Cents { get; set; }
     }
 
@@ -274,7 +373,8 @@ namespace SongFormat
         Pop = 1 << 14,
         Chord = 1 << 15,
         ChordNote = 1 << 16,
-        Continued = 1 << 17
+        Continued = 1 << 17,
+        Arpeggio = 1 << 18
     }
 
     /// <summary>
