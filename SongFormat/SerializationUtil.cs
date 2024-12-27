@@ -54,7 +54,7 @@ namespace SongFormat
             public override void Write(Utf8JsonWriter writer, float value,
                 JsonSerializerOptions options)
             {
-                writer.WriteRawValue(value.ToString("0.##",
+                writer.WriteRawValue(value.ToString("0.###",
                     CultureInfo.InvariantCulture));
             }
         }
