@@ -42,6 +42,8 @@ namespace SongFormat
         public string InstrumentName { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public ESongInstrumentType InstrumentType { get; set; }
+        public string ArrangementName { get; set; }
+        public string SongName { get; set; }
         public StringTuning Tuning { get; set; }
         public int CapoFret { get; set; } = 0;
 
