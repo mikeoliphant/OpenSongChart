@@ -5,6 +5,7 @@ using System.Text.Json.Serialization.Metadata;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace SongFormat
 {
@@ -18,7 +19,8 @@ namespace SongFormat
         public static JsonSerializerOptions IndentedSerializerOptions { get; private set; } = new JsonSerializerOptions()
         {
             Converters = {
-               new JsonStringEnumConverter()
+               new JsonStringEnumConverter(),
+               new JsonConverterFloatRound()
             },
             TypeInfoResolver = new DefaultJsonTypeInfoResolver
             {
@@ -31,7 +33,8 @@ namespace SongFormat
         public static JsonSerializerOptions CondensedSerializerOptions { get; private set; } = new JsonSerializerOptions()
         {
             Converters = {
-               new JsonStringEnumConverter()
+               new JsonStringEnumConverter(),
+               new JsonConverterFloatRound()
             },
             TypeInfoResolver = new DefaultJsonTypeInfoResolver
             {
@@ -39,6 +42,22 @@ namespace SongFormat
             },
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
         };
+
+        private class JsonConverterFloatRound : JsonConverter<float>
+        {
+            public override float Read(ref Utf8JsonReader reader,
+                Type typeToConvert, JsonSerializerOptions options)
+            {
+                return reader.GetSingle();
+            }
+
+            public override void Write(Utf8JsonWriter writer, float value,
+                JsonSerializerOptions options)
+            {
+                writer.WriteRawValue(value.ToString("0.##",
+                    CultureInfo.InvariantCulture));
+            }
+        }
 
         private static void DefaultValueModifier(JsonTypeInfo typeInfo)
         {

@@ -21,6 +21,13 @@ namespace SongFormat
             return InstrumentParts.FirstOrDefault(p => p.InstrumentName == instrumentName);
         }
 
+        public void AddOrReplacePart(SongInstrumentPart part)
+        {
+            InstrumentParts.RemoveAll(p => (p.InstrumentName == part.InstrumentName));
+
+            InstrumentParts.Add(part);
+        }
+
         public override string ToString()
         {
             return ArtistName + " - " + SongName;
@@ -87,6 +94,7 @@ namespace SongFormat
         RhythmGuitar,
         BassGuitar,
         Keys,
+        Drums,
         Vocals
     }
 
@@ -399,6 +407,155 @@ namespace SongFormat
 
         }
     }
+
+    public enum EDrumKitPieceType
+    {
+        None,
+        Kick,
+        Snare,
+        HiHat,
+        Crash,
+        Ride,
+        Tom,
+        Flexi
+    }
+
+    public enum EDrumKitPiece
+    {
+        None,
+        Kick,
+        Snare,
+        HiHat,
+        Crash,
+        Crash2,
+        Crash3,
+        Ride,
+        Ride2,
+        Tom1,
+        Tom2,
+        Tom3,
+        Tom4,
+        Tom5,
+        Flexi1,
+        Flexi2,
+        Flexi3,
+        Flexi4
+    }
+
+    public enum EDrumArticulation
+    {
+        None,
+        DrumHead,
+        DrumHeadEdge,
+        DrumRim,
+        SideStick,
+        HiHatClosed,
+        HiHatOpen,
+        HiHatChick,
+        HiHatSplash,
+        CymbalEdge,
+        CymbalBow,
+        CymbalBell,
+        CymbalChoke,
+        FlexiA,
+        FlexiB,
+        FlexiC
+    }
+
+    public struct SongDrumNote
+    {
+        public static EDrumKitPieceType GetKitPieceType(EDrumKitPiece kitPiece)
+        {
+            switch (kitPiece)
+            {
+                case EDrumKitPiece.None:
+                    return EDrumKitPieceType.None;
+                case EDrumKitPiece.Kick:
+                    return EDrumKitPieceType.Kick;
+                case EDrumKitPiece.Snare:
+                    return EDrumKitPieceType.Snare;
+                case EDrumKitPiece.HiHat:
+                    return EDrumKitPieceType.HiHat;
+                case EDrumKitPiece.Crash:
+                case EDrumKitPiece.Crash2:
+                case EDrumKitPiece.Crash3:
+                    return EDrumKitPieceType.Crash;
+                case EDrumKitPiece.Ride:
+                case EDrumKitPiece.Ride2:
+                    return EDrumKitPieceType.Ride;
+                case EDrumKitPiece.Tom1:
+                case EDrumKitPiece.Tom2:
+                case EDrumKitPiece.Tom3:
+                case EDrumKitPiece.Tom4:
+                case EDrumKitPiece.Tom5:
+                    return EDrumKitPieceType.Tom;
+                case EDrumKitPiece.Flexi1:
+                case EDrumKitPiece.Flexi2:
+                case EDrumKitPiece.Flexi3:
+                case EDrumKitPiece.Flexi4:
+                    return EDrumKitPieceType.Flexi;
+            }
+
+            return EDrumKitPieceType.None;
+        }
+
+        public static EDrumArticulation GetDefaultArticulation(EDrumKitPiece kitPiece)
+        {
+            return GetDefaultArticulation(GetKitPieceType(kitPiece));
+        }
+
+        public static EDrumArticulation GetDefaultArticulation(EDrumKitPieceType kitPieceType)
+        {
+            EDrumArticulation articulation = EDrumArticulation.None;
+
+            switch (kitPieceType)
+            {
+                case EDrumKitPieceType.Kick:
+                    articulation = EDrumArticulation.DrumHead;
+                    break;
+                case EDrumKitPieceType.Snare:
+                    articulation = EDrumArticulation.DrumHead;
+                    break;
+                case EDrumKitPieceType.HiHat:
+                    articulation = EDrumArticulation.HiHatClosed;
+                    break;
+                case EDrumKitPieceType.Crash:
+                    articulation = EDrumArticulation.CymbalEdge;
+                    break;
+                case EDrumKitPieceType.Ride:
+                    articulation = EDrumArticulation.CymbalBow;
+                    break;
+                case EDrumKitPieceType.Flexi:
+                    articulation = EDrumArticulation.FlexiA;
+                    break;
+                case EDrumKitPieceType.Tom:
+                    articulation = EDrumArticulation.DrumHead;
+                    break;
+                default:
+                    break;
+            }
+
+            return articulation;
+        }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+        public float TimeOffset { get; set; } = 0;
+        public EDrumKitPiece KitPiece { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public EDrumArticulation Articulation { get; set; }
+
+        public SongDrumNote()
+        {
+
+        }
+    }
+
+    public class SongDrumNotes
+    {
+        public List<SongSection> Sections { get; set; } = new List<SongSection>();
+        public List<SongDrumNote> Notes { get; set; } = new List<SongDrumNote>();
+    }
+
 
     /// <summary>
     /// Vocal/lyric events in a song
