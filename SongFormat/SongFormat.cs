@@ -72,6 +72,7 @@ namespace SongFormat
     /// </summary>
     public struct SongBeat
     {
+        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public float TimeOffset { get; set; }
         public bool IsMeasure { get; set; }
     }
@@ -227,6 +228,7 @@ namespace SongFormat
     /// </summary>
     public struct SongNote
     {
+        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public float TimeOffset { get; set; } = 0;
         public float TimeLength { get; set; } = 0;
         public int Fret { get; set; } = -1;
@@ -245,6 +247,7 @@ namespace SongFormat
 
     public struct CentsOffset
     {
+        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public float TimeOffset { get; set; }
         public int Cents { get; set; }
     }
@@ -285,6 +288,7 @@ namespace SongFormat
 
     public struct SongKeyboardNote
     {
+        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public float TimeOffset { get; set; } = 0;
         public float TimeLength { get; set; } = 0;
         public int Note { get; set; } = 0;
