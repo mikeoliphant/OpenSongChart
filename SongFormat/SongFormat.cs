@@ -77,14 +77,21 @@ namespace SongFormat
         }
     }
 
+    public interface ISongEvent
+    {
+        public float TimeOffset { get; }
+        public float EndTime { get; }
+    }
+
     /// <summary>
     /// An individual beat in a song
     /// </summary>
-    public struct SongBeat
+    public struct SongBeat : ISongEvent
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public float TimeOffset { get; set; }
         public bool IsMeasure { get; set; }
+        public float EndTime => TimeOffset;
     }
 
     /// <summary>
@@ -295,7 +302,7 @@ namespace SongFormat
     /// <summary>
     /// An individual note/chord event in a song
     /// </summary>
-    public struct SongNote
+    public struct SongNote : ISongEvent
     {
         /// <summary>
         /// Start offset of the note in seconds
@@ -338,6 +345,8 @@ namespace SongFormat
         /// Index into chord array to use for fingering
         /// </summary>
         public int FingerID { get; set; } = -1;
+
+        public float EndTime => TimeOffset + TimeLength;
 
         public SongNote()
         {
@@ -396,11 +405,12 @@ namespace SongFormat
         public List<SongKeyboardNote> Notes { get; set; } = new List<SongKeyboardNote>();
     }
 
-    public struct SongKeyboardNote
+    public struct SongKeyboardNote : ISongEvent
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public float TimeOffset { get; set; } = 0;
         public float TimeLength { get; set; } = 0;
+        public float EndTime => TimeOffset + TimeLength;
         public int Note { get; set; } = 0;
         public int Velocity { get; set; } = 0;
 
@@ -464,7 +474,7 @@ namespace SongFormat
         FlexiC
     }
 
-    public struct SongDrumNote
+    public struct SongDrumNote : ISongEvent
     {
         public static EDrumKitPieceType GetKitPieceType(EDrumKitPiece kitPiece)
         {
@@ -542,6 +552,7 @@ namespace SongFormat
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public float TimeOffset { get; set; } = 0;
+        public float EndTime => TimeOffset;
         public EDrumKitPiece KitPiece { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public EDrumArticulation Articulation { get; set; }
@@ -562,9 +573,10 @@ namespace SongFormat
     /// <summary>
     /// Vocal/lyric events in a song
     /// </summary>
-    public struct SongVocal
+    public struct SongVocal : ISongEvent
     {
         public string Vocal { get; set; }
         public float TimeOffset { get; set; }
+        public float EndTime => TimeOffset;
     }
 }
