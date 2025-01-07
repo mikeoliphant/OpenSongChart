@@ -13,7 +13,7 @@ Design goals are:
 
 # How to get songs in OpenSongChart format
 
-Songs in PSARC format can be converted using the [PsarcConverter](https://github.com/mikeoliphant/PsarcConverter) application.
+Songs in various formats (Rocksmith PSARC, Rock Band) can be converted using the [ChartConverter](https://github.com/mikeoliphant/ChartConverter) application.
 
 # What is in this repo?
 This repository currently has C# data structures designed to be deserialized from data files (currently using json).
