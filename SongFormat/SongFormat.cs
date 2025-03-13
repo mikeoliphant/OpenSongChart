@@ -11,6 +11,8 @@ namespace SongFormat
     public class SongData
     {
         public string SongName { get; set; }
+        public int SongYear { get; set; }
+        public float SongLengthSeconds { get; set; }
         public string ArtistName { get; set; }
         public string AlbumName { get; set; }
         public float A440CentsOffset { get; set; }
