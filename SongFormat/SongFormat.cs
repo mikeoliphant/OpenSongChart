@@ -45,7 +45,10 @@ namespace SongFormat
         [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public ESongInstrumentType InstrumentType { get; set; }
         public string ArrangementName { get; set; }
+        // Alternate path for audio files for this instrument part
         public string SongAudio { get; set; }
+        // File name of an isolated stem for this instrument part
+        public string SongStem { get; set; }
         public StringTuning Tuning { get; set; }
         public int CapoFret { get; set; } = 0;
 

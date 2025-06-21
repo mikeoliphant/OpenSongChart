@@ -13,7 +13,22 @@ namespace SongFormat
     {
         public static string GetSafeFilename(string path)
         {
-            return Regex.Replace(path, "[^a-zA-Z0-9]", String.Empty).Trim();
+            var normalizedString = path.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder(capacity: normalizedString.Length);
+
+            for (int i = 0; i < normalizedString.Length; i++)
+            {
+                char c = normalizedString[i];
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(c);
+                }
+            }
+
+            string normalized = stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+
+            return Regex.Replace(normalized, "[^a-zA-Z0-9]", String.Empty).Trim();
         }
 
         public static JsonSerializerOptions IndentedSerializerOptions { get; private set; } = new JsonSerializerOptions()
