@@ -43,6 +43,8 @@ namespace SongFormat
             },
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
             WriteIndented = true,
+            IgnoreReadOnlyFields = true,
+            IgnoreReadOnlyProperties = true
         };
 
         public static JsonSerializerOptions CondensedSerializerOptions { get; private set; } = new JsonSerializerOptions()
@@ -55,7 +57,9 @@ namespace SongFormat
             {
                 Modifiers = { DefaultValueModifier }
             },
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+            IgnoreReadOnlyFields = true,
+            IgnoreReadOnlyProperties = true
         };
 
         private class JsonConverterFloatRound : JsonConverter<float>
