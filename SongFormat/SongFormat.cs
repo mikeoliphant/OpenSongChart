@@ -51,6 +51,7 @@ namespace SongFormat
         public string SongStem { get; set; }
         public StringTuning Tuning { get; set; }
         public int CapoFret { get; set; } = 0;
+        public float SongDifficulty { get; set; }
 
         public override string ToString()
         {
