@@ -139,15 +139,12 @@ namespace SongFormat
                 }
                 else // Drop tuning
                 {
-                    string drop = GetOffsetNoteFlat(StringSemitoneOffsets[0]);
+                    string drop = GetOffsetNoteSharp(StringSemitoneOffsets[0]);
 
                     if (drop == null)
                         return GetTuningAsNotes();
 
-                    if (key == "E")
-                        return "Drop " + drop;
-
-                    return key + " Drop " + drop;
+                    return "Drop " + drop;
                 }
             }
 
