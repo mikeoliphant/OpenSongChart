@@ -581,8 +581,11 @@ namespace SongFormat
     /// </summary>
     public struct SongVocal : ISongEvent
     {
-        public string Vocal { get; set; }
+        public SongVocal() { }
+
+        public string Vocal { get; set; } = "";
         public float TimeOffset { get; set; }
+        public int Pitch { get; set; } = -1;
         public float EndTime => TimeOffset;
     }
 }
